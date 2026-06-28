@@ -1,0 +1,10 @@
+{
+  "name": "course-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Course app for Docker & Containers for Developers (NAYA College)",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  }
+}

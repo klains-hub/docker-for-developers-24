@@ -1,0 +1,20 @@
+# dependencies / build output
+node_modules/
+dist/
+
+# local env & secrets
+.env
+*.env
+!app.env.example
+token.txt
+
+# logs & os cruft
+*.log
+.DS_Store
+
+# scanning artifacts
+trivy-cache/
+sbom.json
+
+# images
+*.tar

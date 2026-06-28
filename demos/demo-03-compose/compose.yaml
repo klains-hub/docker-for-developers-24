@@ -1,0 +1,29 @@
+# Demo 3 — one command brings up app + database + cache, all networked.
+services:
+  app:
+    image: levep79/course-app:1.0      # or:  build: ../../app
+    ports:
+      - "8080:3000"
+    environment:
+      APP_ENV: demo
+      LOG_LEVEL: debug
+      DATABASE_URL: postgres://app:secret@db:5432/app   # host is the service name "db"
+      REDIS_URL: redis://cache:6379                      # and "cache"
+    depends_on:
+      - db
+      - cache
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7-alpine
+
+volumes:
+  dbdata: {}

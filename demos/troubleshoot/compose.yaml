@@ -1,0 +1,22 @@
+# Lab 22 — DELIBERATELY BROKEN stack. The "app" waits for the database and
+# never connects. Diagnose with: docker compose logs app · docker compose ps.
+# Do NOT read the fix until you've found the root cause.
+services:
+  app:
+    image: postgres:16            # used here only as a postgres CLIENT (pg_isready)
+    command: >
+      sh -c "until pg_isready -h $$DB_HOST -U app; do
+               echo \"waiting for $$DB_HOST ...\"; sleep 2;
+             done; echo CONNECTED; sleep 3600"
+    environment:
+      DB_HOST: databse            # <-- something here is wrong
+      PGPASSWORD: secret
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
