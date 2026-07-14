@@ -21,4 +21,4 @@ jobs:
       - name: Tag & push
         run: |
           docker tag myapp:${{ github.sha }} klains333/myapp:${{ github.sha }}
-          docker push levep79/myapp:${{ github.sha }}
+          docker push klains333/myapp:${{ github.sha }}
